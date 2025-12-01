@@ -1,0 +1,19 @@
+# Dockerfile for Windows containers
+# Build: docker build -f Dockerfile.windows -t apexdumper:windows .
+# Run: docker run --rm -v "C:\path\to\battlebit:/data" apexdumper:windows "C:\data\GameAssembly.dll" > offsets.ini
+
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
+
+# Install Rust and Cargo
+# Note: You'll need to download rustup-init.exe and install it
+# This is a template - you may need to adjust based on Windows container capabilities
+
+WORKDIR C:\\apexdumper
+
+# Copy project files
+COPY Cargo.toml .
+COPY src src
+
+# Build instructions would go here
+# For Windows containers, you might need to use a multi-stage build
+# or pre-build the binary and copy it in

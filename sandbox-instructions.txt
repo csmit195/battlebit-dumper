@@ -1,0 +1,62 @@
+QUICK START GUIDE: Windows Sandbox Setup
+==========================================
+
+STEP 1: Prepare Files
+---------------------
+1. Copy this entire project folder to a location accessible from Windows Sandbox
+   (e.g., C:\SandboxWork\apexdumper)
+
+2. Copy your GameAssembly.dll file to the same location or note its path
+
+STEP 2: Launch Windows Sandbox
+------------------------------
+- Open Start Menu
+- Search for "Windows Sandbox"
+- Click to launch
+
+STEP 3: Copy Files into Sandbox
+--------------------------------
+- In Windows Sandbox, open File Explorer
+- Navigate to the location where you copied the project
+- Copy the apexdumper folder into the Sandbox (e.g., to Desktop)
+
+STEP 4: Set Up Rust (Inside Sandbox)
+-------------------------------------
+Option A - Using the setup script:
+1. Open PowerShell in Windows Sandbox
+2. Navigate to the project folder:
+   cd C:\Users\WDAGUtilityAccount\Desktop\apexdumper
+3. Run the setup script:
+   .\sandbox-setup.ps1
+
+Option B - Manual setup:
+1. Open PowerShell in Windows Sandbox
+2. Download and install Rust:
+   Invoke-WebRequest -Uri "https://win.rustup.rs/x86_64" -OutFile "$env:USERPROFILE\rustup-init.exe"
+   & "$env:USERPROFILE\rustup-init.exe" -y
+3. Add Rust to PATH:
+   $env:PATH += ";$env:USERPROFILE\.cargo\bin"
+4. Navigate to project:
+   cd C:\Users\WDAGUtilityAccount\Desktop\apexdumper
+
+STEP 5: Build and Run
+---------------------
+1. Build the project:
+   cargo build --release
+
+2. Run the dumper:
+   cargo run --release -- "C:\path\to\GameAssembly.dll" > offsets.ini
+
+   OR if you copied GameAssembly.dll to the project folder:
+   cargo run --release -- ".\GameAssembly.dll" > offsets.ini
+
+STEP 6: Copy Results Out
+-------------------------
+- Copy the generated offsets.ini file back to your host Windows
+- The sandbox will be deleted when you close it, so make sure to save your results!
+
+TROUBLESHOOTING
+---------------
+- If cargo command not found: Make sure Rust is installed and PATH is set
+- If build fails: Check that you're in the correct directory with Cargo.toml
+- If DLL not found: Verify the path to GameAssembly.dll is correct
